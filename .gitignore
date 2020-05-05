@@ -1,0 +1,8 @@
+# ignorando las variables de entorno
+.env
+
+# carperta de los modulos
+node_modules
+
+# json
+package-lock.json
