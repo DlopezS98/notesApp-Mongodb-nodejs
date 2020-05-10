@@ -1,8 +1,12 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const Handlebars = require('handlebars')
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const methodOverride = require('method-override');
+const morgan = require('morgan');
+const Handlebars = require('handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+
+
 
 //Initialization
 const app = express();
@@ -22,7 +26,9 @@ app.set('view engine', '.hbs');
 
 
 //Middlewares
+app.use(morgan('dev'));
 app.use(express.urlencoded({extended : false})); //Permite que cada vez que lleguen datos atravez de cualquier tipo de metodo o peticion, convertir esos datos en un objeto json
+app.use(methodOverride('_method'));
 
 //Global variables
 
