@@ -25,6 +25,7 @@ app.use(express.urlencoded({extended : false})); //Permite que cada vez que lleg
 
 //Routes
 app.use(require('./routes/index.routes'));
+app.use(require('./routes/notes.routes'));
 
 //Statics files
 /* Diciendo al servidor donde se localiza la carpeta "public" */
