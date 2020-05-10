@@ -1,15 +1,21 @@
 const notesCtrl={};
 
+const Note = require('../models/Notes');
+
 notesCtrl.renderNotesForm = (req, res) =>{
-    res.send('notes add');
+    res.render('notes/new-note')
 };
 
-notesCtrl.createNewNote = (req, res) =>{
+notesCtrl.createNewNote = async (req, res) =>{
+    const {title, description} = req.body;
+    const newNote = new Note({title: title, description: description});
+    await newNote.save();
     res.send('new note');
 };
 
-notesCtrl.renderAllNotes = (req, res) =>{
-    res.send('render note');
+notesCtrl.renderAllNotes = async (req, res) =>{
+    const notes = await Note.find();
+    res.render('notes/all-notes', {notes}); //renderizando la vista (all-notes) de todas las notas en la carpeta "notes"
 };
 
 notesCtrl.renderEditForm = (req, res) =>{

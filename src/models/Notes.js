@@ -13,4 +13,4 @@ const notesSchema = new Schema({
     timestamps: true,
 });
 
-module.exports = model('Notes', notesSchema);
+module.exports = model('Notes', notesSchema); //Para añadir un nombre a la coleccion solo basta con pasar un parametro mas ejem: model('Notes', notesSchema, 'misNotas');
