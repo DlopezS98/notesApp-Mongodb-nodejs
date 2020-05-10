@@ -24,11 +24,9 @@ app.use(express.urlencoded({extended : false})); //Permite que cada vez que lleg
 //Global variables
 
 //Routes
-app.get('/', (req, res) => {
-    res.render('index');
-});
+app.use(require('./routes/index.routes'));
 
-//Statics file
+//Statics files
 /* Diciendo al servidor donde se localiza la carpeta "public" */
 app.use(express.static(path.join(__dirname, 'public')));
 
