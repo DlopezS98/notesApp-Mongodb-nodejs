@@ -25,6 +25,13 @@ _Ejemplo de instalacion_
 ```
 npm install mongoose express connect-flash ...
 ```
+
+_Dependencia adicional para solucionar el error de handlebars **"Handlebars: Access has been denied to resolve the property “from” because it is not an “own property” of its parent
+"**_
+```
+npm install @handlebars/allow-prototype-access
+```
+
 ### Dependencias de desarrollo
 ```
 npm install dotenv nodemon npm-check-updates -D
