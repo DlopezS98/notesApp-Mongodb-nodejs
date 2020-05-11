@@ -5,8 +5,11 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const Handlebars = require('handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
 
-
+require('./config/passport');
 
 //Initialization
 const app = express();
@@ -29,12 +32,29 @@ app.set('view engine', '.hbs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended : false})); //Permite que cada vez que lleguen datos atravez de cualquier tipo de metodo o peticion, convertir esos datos en un objeto json
 app.use(methodOverride('_method'));
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
 
 //Global variables
+app.use((req, res, next) =>{
+    res.locals.success_msg = req.flash('success_msg')
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error'); //recuperando el error que manda passport
+    res.locals.user = req.user || null;
+    next();
+});
 
 //Routes
 app.use(require('./routes/index.routes'));
 app.use(require('./routes/notes.routes'));
+app.use(require('./routes/users.routes'));
 
 //Statics files
 /* Diciendo al servidor donde se localiza la carpeta "public" */
